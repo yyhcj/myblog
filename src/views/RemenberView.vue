@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <img src="../assets/back.jpg" alt="">
+  <div class="mai">
   <RemView></RemView>
 
   </div>
@@ -14,6 +15,14 @@ components:{
 }
 </script>
 
-<style>
-
+<style scoped>
+img{
+  position: relative;
+  opacity: 0.7;
+}
+.mai{
+position: absolute;
+top: 50px;
+left: 50px;
+}
 </style>

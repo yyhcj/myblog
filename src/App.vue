@@ -1,13 +1,15 @@
 <template>
   <div>
-    <HeaderCom></HeaderCom>
+    
 <router-view></router-view>
+<DockerCom class="docker"></DockerCom>
 </div>
 </template>
 
 <script>
 import axios from 'axios';
-import HeaderCom from './components/HeaderCom.vue'
+
+import DockerCom from '@/components/GlobalCom/DockerCom.vue';
 export default {
   data(){
     return{
@@ -15,7 +17,8 @@ export default {
     }
   },
   components:{
-    HeaderCom
+  
+    DockerCom
   },
 methods:{
   demo(){
@@ -33,12 +36,13 @@ methods:{
 </script>
 
 <style scoped>
-
-
-.HeaderCom{
-font-size: 30px;
-width: 100%;
-height: 100px;
-
+.docker{
+ 
+  width: 100%;
+  height: 23%;
+  position: fixed;
+  top: 70%;
 }
+
+
 </style>

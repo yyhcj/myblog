@@ -1,19 +1,25 @@
 <template>
-  <div class="main">111</div>
+  <div class="main"></div>
+
 </template>
 
 <script>
-export default {
 
+export default {
+components:{
+  
+}
 }
 </script>
 
-<style>
+<style scoped>
+
 .main{
   height: 990px;
+  width: 100%;
   background-image: url('../back.jpg');
   background-repeat: no-repeat;
   background-size: cover;
-  background-color: rgba(255, 255, 255, 0.1); 
+  
 }
 </style>

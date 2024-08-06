@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/rem"><button class="rem">记忆空间</button></router-link>
+ 还未设计头部
 </template>
 
 <script>

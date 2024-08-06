@@ -1,8 +1,10 @@
 <template>
-  <router-link to="/rem/review"><div class="main-item">翻旧账</div></router-link>
-  <router-link to="/rem/mark"><div class="main-item">记新账</div></router-link>
-  <router-link to="/rem/review"><div class="main-item">数据统计</div></router-link>
-  <div class="main-item">其他功能</div>
+  <div class="block">
+  <router-link to="/rem/review"><img class="icon" src="../assets/爱心气泡.png" alt=""><div class="lab">爱的记录</div></router-link>
+  <router-link to="/rem/mark"><img class="icon" src="../assets/爱心气泡.png" alt=""><div class="lab">记录下爱</div></router-link>
+  <router-link to="/rem/review"><img class="icon" src="../assets/爱心气泡.png" alt=""><div class="lab">爱的记录</div></router-link>
+  <router-link to="/rem/review"><img class="icon" src="../assets/爱心气泡.png" alt=""><div class="lab">爱的记录</div></router-link>
+</div>
   <router-view />
 </template>
 
@@ -21,5 +23,22 @@ methods:{
   height: 100px;
   margin: 50px;
   background-color: bisque;
+}
+.icon{
+  width: 80%;
+  margin: 10%;
+  margin-bottom: 0%;
+ 
+}
+a{
+  display: inline-block;
+  text-decoration: none;
+  color: inherit; 
+  width: 15%;
+  margin: 3%;
+  margin-top: 0;
+}
+.lab{
+margin-left: 35%;
 }
 </style>
