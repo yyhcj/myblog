@@ -1,6 +1,5 @@
 <template>
   <div>
-    
 <router-view></router-view>
 <DockerCom class="docker"></DockerCom>
 </div>
@@ -35,13 +34,12 @@ methods:{
 
 </script>
 
-<style scoped>
+<style >
 .docker{
- 
   width: 100%;
   height: 23%;
   position: fixed;
-  top: 70%;
+  top: 78%;
 }
 
 

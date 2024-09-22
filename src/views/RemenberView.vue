@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import RemView from '../components/RemCom.vue'
+import RemView from '../components/WePage/RemCom.vue'
 export default {
 components:{
   RemView
