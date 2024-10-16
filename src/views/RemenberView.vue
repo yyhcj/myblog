@@ -1,28 +1,27 @@
 <template>
-  <img src="../assets/back.jpg" alt="">
+ 
   <div class="mai">
   <RemView></RemView>
-
+  <LoginCom class="login"></LoginCom>
   </div>
 </template>
 
 <script>
-import RemView from '../components/WePage/RemCom.vue'
+import RemView from '../components/WePage/BackphotosCom.vue'
+import LoginCom from '@/components/WePage/LoginCom.vue'
 export default {
 components:{
-  RemView
+  RemView,
+LoginCom
 }
 }
 </script>
 
 <style scoped>
-img{
-  position: relative;
-  opacity: 0.7;
-}
-.mai{
-position: absolute;
-top: 50px;
-left: 50px;
+.login{
+  position: fixed;
+  top: 35%;
+  left: 25vw;
+
 }
 </style>

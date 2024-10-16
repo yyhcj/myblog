@@ -4,5 +4,13 @@
 
 // })
 module.exports=({
-  publicPath:'./'
+  publicPath:'./',
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://120.46.52.202:3000',
+        changeOrigin: true,
+      },
+    },
+  }
 })

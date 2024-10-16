@@ -15,6 +15,13 @@ import FjnuRouter from '@/components/cjnb/FjnuRouter.vue';
 import ComputerRouter from '@/components/cjnb/ComputerRouter.vue';
 import MakefriendRouter from '@/components/cjnb/MakefriendRouter.vue';
 import LookworkRouter from '@/components/cjnb/LookworkRouter.vue';
+import WeloginView from '@/views/WeloginView.vue';
+import EventContainer from '@/components/wepagelogined/EventContainer.vue';
+import AddEvent from '@/components/wepagelogined/AddEvent.vue';
+import FuturePlan from '@/components/wepagelogined/FuturePlan.vue';
+import EventDetail from '@/components/wepagelogined/EventDetail.vue';
+import DailyView from '@/views/DailyView.vue';
+import AddDailyidea from '@/views/AddDailyidea.vue';
 const routes = [
   {path:'/nb',component:cjnb,children:[
     {path:'sport',component:SportRouter},
@@ -22,6 +29,14 @@ const routes = [
     {path:'computer',component:ComputerRouter},
     {path:'friend',component:MakefriendRouter},
     {path:'world',component:LookworkRouter}
+  ]},
+  {path:'/adddaily',component:AddDailyidea},
+  {path:'/daily',component:DailyView},
+  {path:'/wepage',component:WeloginView,children:[
+    {path:'',component:EventContainer},
+    {path:'addevent',component:AddEvent},
+    {path:'detail',component:EventDetail},
+    {path:'future',component:FuturePlan}
   ]},
   {path:'/addmusic',component:AddMusic},
   {path:'/admin',component:LoginCom},

@@ -34,7 +34,7 @@ methods:{
 
 </script>
 
-<style >
+<style scoped>
 .docker{
   width: 100%;
   height: 23%;
