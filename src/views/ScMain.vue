@@ -2,7 +2,7 @@
   <div class="body">
     <ScDocker class="docker" @change="changefn"></ScDocker>
     <RoundPhoto></RoundPhoto>
-    <ItemContainer  :list = nowlist>LoveBest</ItemContainer>
+    <ItemContainer></ItemContainer>
   </div>
 </template>
 
@@ -11,77 +11,48 @@ import axios from 'axios';
 import ItemContainer from '../components/收藏界面/ItemContainer.vue';
 import RoundPhoto from '../components/收藏界面/RoundPhoto.vue';
 import ScDocker from '../components/收藏界面/ScDocker.vue';
-import {ref,onMounted} from 'vue'
-
+import {ref} from 'vue'
+import {scpage} from '@/stores/scpage_store'
 const changefn=(a)=>{
 nowflag.value=a
 headerdocker()
-console.log(nowlist.value)
+getdatalist()
 }
-const musiclist=ref({
-roundphoto:["https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg"],
-lovebest:['music'],
-looked:[]
-});
-const movielist=ref({
-roundphoto:["https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg"],
-lovebest:['movie'],
-looked:[]
-});
-const gamelist=ref({
-roundphoto:["https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg","https://pic2.zhimg.com/v2-54b44f54681ffe46dbceef50a8740a7a_r.jpg"],
-lovebest:['game'],
-looked:[]
-});
-const nowlist=ref({})
 const nowflag=ref(1)
 const headerdocker=()=>{
-  if(nowflag.value===1){
-    nowlist.value=movielist.value
-  }
-  else if(nowflag.value===2){
-    nowlist.value=gamelist.value
-  }else{
-    nowlist.value=musiclist.value
-  }
 }
-const getmusicdata=()=>{
-axios.post('http://120.46.52.202:3000/getmusicdata',{
-}).then((response)=>{
-  musiclist.value=response.data
-}).catch((error)=>{
-  console.log(error)
-})
-}
-const getgamedata=()=>{
-  axios.post('http://120.46.52.202:3000/getgamedata',{
-}).then((response)=>{
-  gamelist.value=response.data
-}).catch((error)=>{
-  console.log(error)
-})
-}
-const getmoviedata=()=>{
-  axios.post('http://120.46.52.202:3000/getmoviedata',{
-}).then((response)=>{
-  movielist.value=response.data
-}).catch((error)=>{
-  console.log(error)
-})
-}
-onMounted(()=>{
-getmusicdata()
-getgamedata()
-getmoviedata()
-})
+//获取当前页的数据存到pinia仓库中
+const getdatalist=()=>{
+  const store = scpage();
+  const keyword=ref('')
 
+  if(nowflag.value==1){
+     keyword.value='movie'
+  }else if(nowflag.value==2){
+    keyword.value='game'
+  }
+  else if(nowflag.value==3){
+    keyword.value='music'
+  }
+
+  axios.post('http://120.46.52.202:3000/get_sc_miandata',{keyword:keyword.value,type:'round'}).then(response => {
+    store.update_round(response.data)
+  })
+  axios.post('http://120.46.52.202:3000/get_sc_miandata',{keyword:keyword.value,type:'lovebest'}).then(response => {
+    store.update_like(response.data)
+  })
+  axios.post('http://120.46.52.202:3000/get_sc_miandata',{keyword:keyword.value,type:'lovebast'}).then(response => {
+    store.update_normal(response.data)
+  })
+}
+getdatalist()
 
 </script>
 
 <style scoped>
 .body{
     background-color: black;
-    width: 100%;
+    width: 100vw;
     height: 975px;
     
 }

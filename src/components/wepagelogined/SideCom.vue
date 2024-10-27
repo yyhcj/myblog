@@ -50,7 +50,7 @@ methods:{
   width: 90%;
   margin-left: 5%;
   border-radius:25px ;
-  background-color: rgb(241, 241, 241);
+  background-color: rgb(242, 245, 233);
   height: 50px;
   display: flex;
   justify-content: center;

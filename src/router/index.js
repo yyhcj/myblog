@@ -22,7 +22,15 @@ import FuturePlan from '@/components/wepagelogined/FuturePlan.vue';
 import EventDetail from '@/components/wepagelogined/EventDetail.vue';
 import DailyView from '@/views/DailyView.vue';
 import AddDailyidea from '@/views/AddDailyidea.vue';
+import ElementLearn from '@/views/ElementLearn.vue';
+import ScdataManage from '@/views/ScdataManage.vue';
+import ShowTime from '@/views/ShowTime.vue';
 const routes = [
+  {path:'/showtime',component:ShowTime},
+
+  {path:'/scmanage',component:ScdataManage
+  },
+  {path:'/learn',component:ElementLearn},
   {path:'/nb',component:cjnb,children:[
     {path:'sport',component:SportRouter},
     {path:'fjnu',component:FjnuRouter},

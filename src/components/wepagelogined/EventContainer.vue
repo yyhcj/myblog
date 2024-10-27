@@ -1,12 +1,4 @@
 <template>
-   <!-- <div class="eventcontainer" v-if="loadover">
-<div class="event-card" v-for="(item,index) in eventlist" :key="index">
-    <div class="img"><img :src="item.record_img1" alt=""></div>
-    <div class="title">{{ item.record_title }}</div>
-    <div class="people">{{item.record_people}}</div>
-    <div class="time">{{item.record_time}}</div>
-</div>
-    </div> -->
     <div class="eventcontainer">
     <div class="vline" v-for="(lineitem,lineindex) in list" :key="lineindex">
       <div class="event-card" @click="godetail(item.record_id)" v-for="(item,index) in eventlist.filter((_, index) => index % 4 === lineitem)" :key="index">
@@ -18,12 +10,11 @@
     </div>
 </div>
 </template>
-
 <script setup>
-import { onMounted } from 'vue';
+import {weloginpagestore} from '@/stores/weloginpagestore';
 const list=[0,1,2,3];
 import axios from 'axios';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 const godetail = (id) => {
   console.log(id);
@@ -32,15 +23,13 @@ const godetail = (id) => {
 const loadover = ref(false);
 
 const eventlist = ref([]);
-//页面加载时向服务器请求数据
 
-onMounted(() => {
+//页面加载时向服务器请求数据
   axios.post('http://120.46.52.202:3000/getEventlist')
    .then(response => {
       // 处理请求成功的响应数据
-      eventlist.value = response.data;
-      console.log(eventlist.value);
-      console.log("111");
+      const store=weloginpagestore();
+      store.updatelist(response.data)
     })
    .catch(error => {
       // 处理请求错误
@@ -49,7 +38,12 @@ onMounted(() => {
     setTimeout(() => {
         loadover.value = true;
     }, 800);
-});
+
+    // 监听store中的数据变化
+    const store=weloginpagestore();
+    watch(() => store.datalist, (newValue) => {
+                   eventlist.value = newValue;
+               });
 </script>
 
 <style scoped>
@@ -58,8 +52,10 @@ display: block;
 width: 100%;
 height: auto;
 margin: 1.5%;
-border: 1px solid gray;
 margin: 2.47vw;
+border-radius: 30px;
+box-shadow:3px 5px 4px 8px rgba(0, 0, 0, 0.1);
+overflow: hidden;
 }
 .time{
     display: inline-block;

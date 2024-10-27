@@ -23,7 +23,7 @@ methods:{
     height: 25vw;
     border: 1px solid gray;
     background-color: rgb(180, 231, 231) ;
-    opacity: 0.45;
+    opacity: 0.1;
     transition: 0.3s;
 
 }

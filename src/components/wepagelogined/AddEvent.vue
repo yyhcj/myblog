@@ -18,6 +18,7 @@
       <div class="img-watch">
           <img :src="imageUrl" alt="" />
         </div>
+
       </div>
       <div class="commitpeople"></div>
     </div>

@@ -1,53 +1,68 @@
 <template>
-  <div class="Item-Container">
-    <div class="title"><slot></slot></div>
-    <div class="photo-container" >
-      <div class="photo-item" v-for="(item,index) in props.list" :key="index" @click="godetail(item.musicid)">
-        <div class="photo-item-title">{{item.musicname}}</div>
-      </div>
-
-    </div>
+<div class="title">俊哥严选</div>
+<div class="item-container">
+  <div class="item" v-for="(item,index) in list" :key="index" @click="godetail(item.musicid,item.musicpath,item.gecipath)">
+    <img :src=item.img alt="">
   </div>
+</div>
 </template>
 
+
+
 <script setup>
-import {defineProps} from 'vue'
-const props = defineProps({list:Array})
-// 点击图片跳转到详情页并传musicid参数
-const godetail=(id)=>{
- window.location.href=`/#/music?musicid=${id}`
+import {scpage} from '@/stores/scpage_store'
+import {musicdata} from '@/stores/music_play_store'
+
+import {ref, watch} from 'vue'
+const store = scpage();
+const list = ref([])
+list.value = store.now_likebest_list
+watch(() => store.now_likebest_list, () => {
+  list.value = store.now_likebest_list
+  console.log(list.value)
+})
+//存储musicid用于查询
+const storeid=(id)=>{
+  const store = musicdata();
+  store.update_id(id)
+}
+const godetail = (id)  => {
+if(id){
+  storeid(id)
+    location.href='/#/music'
+}
+else{
+  return
+}
+
 }
 
 </script>
 
 <style scoped>
-.Item-Container{
-  margin: auto;
- 
-  width: 1700px;
-  height: 400px;
-  color:white
-}
 .title{
-  color: aliceblue;
-  width: 1700px;
-  height: 30px;
-  font-size: large;
-  background-color: rgba(26, 25, 25, 0.5);
-}
-.photo-container{
+  font-size: 30px;
+  font-weight: bold;
+  color: #333;
+  text-align: left;
+  margin-left: 3vw;
   margin-top: 20px;
-  display: flex;
-  width: 1500px;
 }
-.photo-item{
-  width: 200px;
-  height: 275px;
-  margin-right: 40px;
-  border: 3px solid white;
+.item-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 3vw;
+  margin-top: 20px;
 }
 img{
-  width: 200px;
-  height: 275px;
+  width: 15vw;
+}
+.item{
+  height: 20vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

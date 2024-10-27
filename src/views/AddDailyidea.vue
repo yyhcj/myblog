@@ -1,7 +1,7 @@
 <template>
 <body>
-  <div class="input-container">
-    <input type="text" placeholder="文案" v-model="this.text">
+  <div class="input-container" aria-placeholder="文案">
+    <textarea name="" v-model="this.text" id=""></textarea>
     <input type="text" placeholder="配图" v-model="this.img">
     <input type="text" placeholder="id" v-model="this.id">
     <button @click="commit">提交</button>
@@ -20,13 +20,14 @@ id:''
 }},
 methods:{
 commit(){
+  console.log("点击了")
   axios.post('http://120.46.52.202:3000/adddailyidea',{
     text:this.text,
     img:this.img,
     id:this.id,
     time:this.gettime()
-  }).then((res)=>{
-    console.log(res)
+  }).then(()=>{
+    console.log("提交成功")
     window.alert("提交成功")
   })
 },
@@ -72,7 +73,14 @@ gettime(){
       border: 1px solid #ccc;
       border-radius: 0.4vw;
       font-size: 1.6vw;}
-
+.detail{
+  height: 10vw;
+}
+textarea{
+  width: 96%;
+  height: 20vw;
+  font-size: 1.6vw;
+}
     button {
       padding: 1vw 2vw;
       background-color: #007BFF;

@@ -2,7 +2,7 @@
   <div class="allcontainer">
  <SideCom class="sider"></SideCom>
    <div class="main">
-    <HeaderCom class="find"></HeaderCom>
+    <HeaderCom class="find1"></HeaderCom>
    <router-view class="route"></router-view>
    </div>
   </div>
@@ -28,21 +28,24 @@ components:{
 .sider{
     width: 20%;
     height: 975px;
+    border-radius: 15px;
+    background-color: rgb(245, 239, 233);
     
 }
-
 .main{
-    width: 75%;
+    width: 77%;
     height: 975px;
     display: block;
+    
 }
 .route{
+    background-color: rgb(245, 239, 233);
     width: 100%;
     height: 825px;
     overflow-y: scroll;
+    margin-top: 2vw;
+    border-radius: 15px;
 }
-div{
-    border: 1px solid gray;
-}
+
 
 </style>

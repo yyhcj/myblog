@@ -1,6 +1,7 @@
 <template>
+  <button @click="con">111</button>
   <div class="all">
-    <audio src="http://120.46.52.202/asset/music/不将就.mp3" controls @timeupdate="(event) => timeupdate(event.target.currentTime)" >
+    <audio src="http://120.46.52.202/music/花田错.mp3" controls @timeupdate="(event) => timeupdate(event.target.currentTime)" >
      
     </audio>
     <div class="name1">不将就</div>
@@ -20,43 +21,27 @@
 </template>
 
 <script setup>
+import axios from 'axios'
+import {ref} from 'vue'
+import {musicdata} from '@/stores/music_play_store'
+//获取歌词音乐路径先得到音乐id
+const id =ref('')
+const musicpath=ref('')
+const gecipath=ref('')
+const store =musicdata()
+id.value=store.now_id
+//发请求得到歌词音乐路径
 
-//import song from '/public/不将就.mp3'
-// import axios from 'axios'
-// import { useRoute } from 'vue-router';
-// import { ref} from 'vue'
-// const route = useRoute();
-// const list =ref([])
-// const audio = ref("blob:http://localhost:8080/e7686aa5-b5f3-4221-b3a9-0d6f7f0df875");
+  axios.post('http://120.46.52.202:3000/getmusic',{
+  id:id.value
+}).then((response)=>{
+  musicpath.value=response.data[0].musicpath
+  gecipath.value=response.data[0].gecipath
+  console.log(gecipath.value)
 
-//用axios发请求获取音乐歌词图片数据
-// const getdata = async () => {
-//   try {
-//     const response = await axios.post('http://120.46.52.202:3000/getmusic', { musicid: route.params.musicid });
-//     console.log(response.data);
-//     list.value = response.data;
-//   } catch (error) {
-//     console.error('Error fetching data:', error);
-//   }
-// };
-
-// getdata().then(() => {  
-//   changedata();  
-// });
+})
 
 
-
-//将得到的buffer文件转为url
-// const changedata=()=>{
-//   const unit8Array = new Uint8Array(list.value.musicData.data);  
-//   const blob = new Blob([unit8Array], { type: 'audio/mpeg' });  
-//   const audioUrl = ref(URL.createObjectURL(blob));  
-//   audio.value = audioUrl;
-
-
-//   console.log(audioUrl)
-
-// }
 const geci=
 `[00:00.00]作词:黄伟文/李荣浩
 [00:01.00]作曲:李荣浩
