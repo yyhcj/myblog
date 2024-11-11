@@ -3,7 +3,7 @@
 //   transpileDependencies: true,
 
 // })
-module.exports=({
+module.exports={
   publicPath:'./',
   devServer: {
     proxy: {
@@ -11,6 +11,10 @@ module.exports=({
         target: 'http://120.46.52.202:3000',
         changeOrigin: true,
       },
+      '/abc': {
+        target: 'http://abc.cjnb.site',
+        changeOrigin: true,
+      },
     },
   }
-})
+}

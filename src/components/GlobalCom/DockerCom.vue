@@ -5,23 +5,23 @@
       <br>
       <br>
     <div class="menu" ref="menu">
-    <div @mousemove="move" class="item" @click="tonb"> <img src="@/assets/339神.png" alt=""><div class="out"><div class="font">陈俊牛逼</div></div></div>
+    <div @mousemove="move" class="item" @click="go('nb')"> <img src="@/assets/339神.png" alt=""><div class="out"><div class="font">陈俊牛逼</div></div></div>
     <div @mousemove="move" class="gap"></div>
-    <div @mousemove="move" class="item" @click="todaily"><img src="@/assets/pm229m.png" alt=""><div class="out"><div class="font">日常感想</div></div></div>
+    <div @mousemove="move" class="item" @click="go('daily')"><img src="@/assets/pm229m.png" alt=""><div class="out"><div class="font">日常感想</div></div></div>
     <div @mousemove="move" class="gap"></div>
-    <div @mousemove="move" class="item" @click="toshowtime"><img src="@/assets/pied-piper-alt.png" alt=""><div class="out"><div class="font">人生时刻</div></div></div>
+    <div @mousemove="move" class="item" @click="go('showtime')"><img src="@/assets/pied-piper-alt.png" alt=""><div class="out"><div class="font">人生时刻</div></div></div>
     <div @mousemove="move" class="gap"></div>
-    <div @mousemove="move" class="item"  @click="tosc"><img src="@/assets/花.png" alt=""><div class="out"><div class="font">珍藏馆</div></div></div>
+    <div @mousemove="move" class="item"  @click="go('sc')"><img src="@/assets/花.png" alt=""><div class="out"><div class="font">珍藏馆</div></div></div>
     <div @mousemove="move" class="gap"></div>
-    <div @mousemove="move" class="item"><img src="@/assets/自.png" alt=""><div class="out"><div class="font">开发记录</div></div></div>
+    <div @mousemove="move" class="item" @click="go('record')"><img src="@/assets/自.png" alt=""><div class="out"><div class="font">开发记录</div></div></div>
     <div @mousemove="move" class="gap"></div>
-    <div @mousemove="move" class="item" @click="toabout"><img src="@/assets/介绍信息.png" alt=""><div class="out"><div class="font">关于本站</div></div></div>
+    <div @mousemove="move" class="item" @click="go('about')"><img src="@/assets/介绍信息.png" alt=""><div class="out"><div class="font">关于本站</div></div></div>
     <div @mousemove="move" class="gap"></div>
-    <div @mousemove="move" class="item" @click="gohong"><img src="@/assets/情侣.png" alt=""><div class="out"><div class="font">遇见彩虹</div></div></div>
+    <div @mousemove="move" class="item" @click="go('rem')"><img src="@/assets/情侣.png" alt=""><div class="out"><div class="font">遇见彩虹</div></div></div>
     <div @mousemove="move" class="gap"></div>
-    <div @mousemove="move" class="item"><img src="@/assets/绝版珍藏icon01.png" alt=""><div class="out"><div class="font">一些</div></div></div>
+    <div @mousemove="move" class="item" @click="go('manage')"><img src="@/assets/绝版珍藏icon01.png" alt=""><div class="out"><div class="font">管理</div></div></div>
     <div @mousemove="move" class="gap"></div>
-    <div @mousemove="move" class="item"><img src="@/assets/327天.png" alt=""><div class="out"><div class="font">未来计划</div></div></div>
+    <div @mousemove="move" class="item" @click="go('learn')"><img src="@/assets/327天.png" alt=""><div class="out"><div class="font">未来计划</div></div></div>
     <div @mousemove="move" class="gap"></div>
     <button @click="hiden" class="item">隐藏<br>导航栏</button>
     </div>
@@ -49,27 +49,12 @@ export default {
     this.previousScales = new Array(this.menuItems.length).fill(1);
   },
   methods: {
+    go(path){
+      console.log(path)
+      location.href=`/#/${path}`
+    },
     hiden(){
      this.flag=false
-    },
-    todaily(){
-      location.href='/#/daily'
-    },
-    toshowtime(){
-      location.href='/#/showtime'
-    },
-    tonb(){
-      location.href='/#/nb'
-    },
-
-    tosc(){
-      location.href='/#/sc'
-    },
-    toabout(){
-      location.href='/#/about'
-    },
-    gohong(){
-      location.href='/#/rem'
     },
   move(event) {
       const curve = _.throttle(() => {
@@ -124,7 +109,6 @@ export default {
   }
 };
 </script>
-
 <style scoped>
 img{
   width: 100%;

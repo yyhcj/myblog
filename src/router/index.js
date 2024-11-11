@@ -25,11 +25,19 @@ import AddDailyidea from '@/views/AddDailyidea.vue';
 import ElementLearn from '@/views/ElementLearn.vue';
 import ScdataManage from '@/views/ScdataManage.vue';
 import ShowTime from '@/views/ShowTime.vue';
+import Showtime_M from '@/views/Showtime_M.vue';
+import ManageIndex from '@/views/ManageIndex.vue';
+import MyRecord from '@/views/MyRecord.vue';
+import Scnomal_M from '@/views/Scnornal_M.vue';
+import Sc_AddMusic from '@/views/Sc_Addmusic.vue';
 const routes = [
+  {path:"/record",component:MyRecord},
+  {path:"/scmusic",component:Sc_AddMusic},
+  {path:'/scnormal',component:Scnomal_M},
+  {path:'/manage',component:ManageIndex},
   {path:'/showtime',component:ShowTime},
-
-  {path:'/scmanage',component:ScdataManage
-  },
+  {path:'/showmanage',component:Showtime_M},
+   {path:'/scmanage',component:ScdataManage},
   {path:'/learn',component:ElementLearn},
   {path:'/nb',component:cjnb,children:[
     {path:'sport',component:SportRouter},

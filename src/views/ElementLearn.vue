@@ -1,27 +1,84 @@
 <template>
-  <div>
-    <v-form-render :form-json="formJson" :form-data="formData" :option-data="optionData" ref="vFormRef">
-    </v-form-render>
-    <el-button type="primary" @click="submitForm">Submit</el-button>
-  </div>
+  <!-- <el-button plain @click="dialogTableVisible = true">
+    Open a Table nested Dialog
+  </el-button> -->
+
+  <el-button plain @click="dialogFormVisible = true">
+    Open a Form nested Dialog
+  </el-button>
+
+  <!-- <el-dialog v-model="dialogTableVisible" title="Shipping address" width="800">
+    <el-table :data="gridData">
+      <el-table-column property="date" label="Date" width="150" />
+      <el-table-column property="name" label="Name" width="200" />
+      <el-table-column property="address" label="Address" />
+    </el-table>
+  </el-dialog> -->
+
+  <el-dialog v-model="dialogFormVisible" title="Shipping address" width="500">
+    <el-form :model="form">
+      <el-form-item label="Promotion name" :label-width="formLabelWidth">
+        <el-input v-model="form.name" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="Zones" :label-width="formLabelWidth">
+        <el-select v-model="form.region" placeholder="Please select a zone">
+          <el-option label="Zone No.1" value="shanghai" />
+          <el-option label="Zone No.2" value="beijing" />
+        </el-select>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <div class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">
+          Confirm
+        </el-button>
+      </div>
+    </template>
+  </el-dialog>
+  <br>
+  <DrewerInput></DrewerInput>
 </template>
 
-<script setup>
-  import { ref, reactive } from 'vue'
-  import { ElMessage } from 'element-plus'
 
-  const formJson = reactive({"widgetList":[{"key":53356,"type":"table","category":"container","icon":"table","rows":[{"cols":[{"type":"table-cell","category":"container","icon":"table-cell","internal":true,"widgetList":[],"merged":false,"options":{"name":"table-cell-16036","cellWidth":"","cellHeight":"","colspan":1,"rowspan":1,"wordBreak":false,"customClass":""},"id":"table-cell-16036"}],"id":"table-row-62479","merged":false}],"options":{"name":"table84032","hidden":false,"customClass":[]},"id":"table84032"},{"key":109646,"type":"file-upload","icon":"file-upload-field","formItemFlag":true,"options":{"name":"fileupload97295","label":"file-upload","labelAlign":"","labelWidth":null,"labelHidden":false,"columnWidth":"200px","disabled":false,"hidden":false,"required":false,"requiredHint":"","customRule":"","customRuleHint":"","uploadURL":"http://120.46.52.202/music","uploadTip":"","withCredentials":false,"multipleSelect":false,"showFileList":true,"limit":3,"fileMaxSize":5,"fileTypes":["doc","docx","xls","xlsx","mp3","lrc"],"customClass":[],"labelIconClass":null,"labelIconPosition":"rear","labelTooltip":null,"onCreated":"","onMounted":"","onBeforeUpload":"","onUploadSuccess":"","onUploadError":"","onFileRemove":"","onValidate":""},"id":"fileupload97295"}],"formConfig":{"modelName":"formData","refName":"vForm","rulesName":"rules","labelWidth":90,"labelPosition":"left","size":"","labelAlign":"label-center-align","cssCode":"","customClass":[],"functions":"","layoutType":"PC","jsonVersion":3,"onFormCreated":"","onFormMounted":"","onFormDataChange":""}})
-  const formData = reactive({})
-  const optionData = reactive({})
-  const vFormRef = ref(null)
+<script  setup>
+import { reactive, ref } from 'vue'
+import DrewerInput from '../components/Element/DrewerInput.vue';
+// const dialogTableVisible = ref(false)
+const dialogFormVisible = ref(false)
+const formLabelWidth = '140px'
 
-  const submitForm = () => {
-    vFormRef.value.getFormData().then(formData => {
-      // Form Validation OK
-      alert( JSON.stringify(formData) )
-    }).catch(error => {
-      // Form Validation failed
-      ElMessage.error(error)
-    })
-  }
+const form = reactive({
+  name: '',
+  region: '',
+  date1: '',
+  date2: '',
+  delivery: false,
+  type: [],
+  resource: '',
+  desc: '',
+})
+
+// const gridData = [
+//   {
+//     date: '2016-05-02',
+//     name: 'John Smith',
+//     address: 'No.1518,  Jinshajiang Road, Putuo District',
+//   },
+//   {
+//     date: '2016-05-04',
+//     name: 'John Smith',
+//     address: 'No.1518,  Jinshajiang Road, Putuo District',
+//   },
+//   {
+//     date: '2016-05-01',
+//     name: 'John Smith',
+//     address: 'No.1518,  Jinshajiang Road, Putuo District',
+//   },
+//   {
+//     date: '2016-05-03',
+//     name: 'John Smith',
+//     address: 'No.1518,  Jinshajiang Road, Putuo District',
+//   },
+// ]
 </script>

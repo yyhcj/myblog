@@ -1,5 +1,10 @@
 <template>
   <div> 
+    <el-radio-group v-model="flag1">
+      <el-radio :value="1">照片墙</el-radio>
+      <el-radio :value="2">最爱</el-radio>
+    </el-radio-group>
+    <br>
     <el-radio-group v-model="flag">
       <el-radio :value="1">电影</el-radio>
       <el-radio :value="2">游戏</el-radio>
@@ -28,6 +33,8 @@
 import axios from 'axios';
 import { ref, watch } from 'vue';
 const flag=ref(3)//1电影2游戏3音乐,分辨是电影还是游戏还是音乐
+const flag1=ref(1)
+
 //计算是电影还是游戏还是音乐
 const computeflag=()=>{
 if(flag.value==1){
@@ -40,25 +47,35 @@ else{
     return 'music'
 }
 }
+//计算是照片墙还是最爱
+const computeflag1=()=>{
+if(flag1.value==1){
+    return 'round'
+}
+else if(flag1.value==2){
+    return 'lovebest'
+}
+}
+
 const roundlist = ref([]);
-const lovebestlist = ref([]);
 //获取三种数据
 const getdata=()=>{
-    axios.post('http://120.46.52.202:3000/get_sc_miandata',{keyword:computeflag(),type:"round"}).then(response => {roundlist.value = response.data;})
-    axios.post('http://120.46.52.202:3000/get_sc_miandata',{keyword:computeflag(),type:"lovebest"}).then(response => {lovebestlist.value = response.data;})
+    axios.post('http://120.46.52.202:3000/get_sc_miandata',{keyword:computeflag(),type:computeflag1()}).then(response => {roundlist.value = response.data;})
 }
 getdata()
-watch(flag,()=>{
+watch([flag,flag1],()=>{
     getdata()
 
 })
 //提交修改数据
 const commit1=()=>{
     console.log(roundlist.value)
-    axios.post('http://120.46.52.202:3000/updatescdata',{roundlist:roundlist.value,lovebestlist:lovebestlist.value,keyword:computeflag()},
+    axios.post('http://120.46.52.202:3000/updatescdata',{roundlist:roundlist.value,keyword:computeflag(),type:computeflag1()},
+
 {headers:{"content-type": "application/json"}}
 ).then(
-    response=>{console.log(response)}
+    response=>{console.log(response)},
+    window.alert('修改成功')
 
 )
 }

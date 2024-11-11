@@ -40,8 +40,6 @@ const handleinputchange = (e) => {
   console.log(file.value.name)
   reader.readAsDataURL(file.value);
 };
-
-
 //处理图片
 const fileInputRef = ref(null);
 
@@ -50,7 +48,6 @@ const fileInputRef = ref(null);
          if (!file) return;
          const formData = new FormData();
          formData.append('image', file);
-         
          try {
            const response = await axios.post('http://120.46.52.202:3000/api/upload', formData, {
              headers: {

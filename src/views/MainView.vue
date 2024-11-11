@@ -22,7 +22,7 @@ components:{
 .main{
   width: 100vw;
   height: 50vw;
-  background-image: url('../back.jpg');
+  background-image: url('http://sm2n4r5ma.hn-bkt.clouddn.com/blog/back/back.jpg?scale=0.1');
   background-repeat: no-repeat;
   background-size: cover;
   

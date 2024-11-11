@@ -11,9 +11,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.19.2",
     "iconv-lite": "^0.6.3",
     "mysql": "^2.18.1",
+    "qiniu": "^7.13.0",
     "sql": "file:"
   }
 }
