@@ -51,10 +51,9 @@ else{
 .item-container{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   align-items: center;
-  margin-left: 3vw;
   margin-top: 20px;
+
 }
 img{
   width: 15vw;
@@ -64,5 +63,7 @@ img{
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-left: 1.5vw;
+ 
 }
 </style>

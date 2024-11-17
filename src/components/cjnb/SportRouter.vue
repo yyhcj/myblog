@@ -1,12 +1,6 @@
 <template>
   <div class="outer">
-    <div class="cards1 card">
-        <div class="body"></div>
-        <div class="img1"></div>
-        <div class="img2"></div>
-        <div class="img3"></div>
-        <div class="img4"></div>
-    </div>
+    <div class="cards1 card"></div>
     <div class="cards2 card"></div>
     <div class="cards3 card"></div>
     <div class="cards4 card"></div>
@@ -64,7 +58,7 @@ export default {
     transform-origin: 5% 50%;
     
 }
-.cards1:hover{
+/* .cards1:hover{
     transform:scaleX(6.5) scaleY(1.5); 
 }
 .cards2{
@@ -99,5 +93,5 @@ export default {
 }
 .cards4:hover{
     transform:scaleX(6.5) scaleY(1.5);
-}
+} */
 </style>

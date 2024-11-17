@@ -129,10 +129,14 @@ const geci=document.getElementById('geci')
 formData.append('file', music.files[0]);
 const formData1=new FormData()
 formData1.append('file',geci.files[0]);
-axios.post('http://120.46.52.202:3000/addmusic',{name:add_data.value.name,img:add_data.value.img,musicpath:`http://sm2n4r5ma.hn-bkt.clouddn.com/${geci.files[0].name}`,gecipath:`http://sm2n4r5ma.hn-bkt.clouddn.com/${music.files[0].name}`,type:'lovebest'}).then((res)=>{
+console.log(geci.files[0].name)
+axios.post('http://120.46.52.202:3000/addmusic',{name:add_data.value.name,img:add_data.value.img,musicpath:`http://sm2n4r5ma.hn-bkt.clouddn.com/${music.files[0].name}`,gecipath:`http://sm2n4r5ma.hn-bkt.clouddn.com/${geci.files[0].name}`,type:'lovebest'}).then((res)=>{
       if(res.data){
-        console.log(res.data)
-      alert('添加成功')}}
+      console.log(res.data)
+      alert('添加成功')}
+    else{
+      alert('添加失败')
+    }}
     )
 axios.post('http://120.46.52.202:3000/uptoqiniu',formData)
 axios.post('http://120.46.52.202:3000/uptoqiniu',formData1).then((res)=>{

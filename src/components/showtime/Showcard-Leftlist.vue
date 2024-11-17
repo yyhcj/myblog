@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-  <ShowCard class="card" v-for="(item, index) in list" :key="index" :img="item.showtime_img" :index="index" />
+  <ShowCard class="card" v-for="(item, index) in list" :key="index" :img="item.showtime_img" :index="index" :title="item.showtime_title" :time="item.showtime_time"/>
 </div>
 </template>
 

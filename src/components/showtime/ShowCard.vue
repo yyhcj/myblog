@@ -1,19 +1,14 @@
 <template>
 <div class="card">
-    <div class="title">
-    标题
-    </div>
+    <div class="time">{{ time }}</div>
+    <div class="title">{{ title }}</div>
     <img :src=img alt="">
-    <div class="detail">
-        111
     </div>
-
-</div>
 </template>
 
 <script>
 export default {
-props:['img','index']
+props:['img','index','title',"time"]
 }
 </script>
 
@@ -22,7 +17,6 @@ props:['img','index']
     color: white;
     height: 15vw;
     width: 25vw;
-    background-color: rgb(140, 248, 167);
     border-radius: 25px;
     box-shadow: 1px 1px 5px 5px rgb(200, 210, 221);
     transition: 1s;
@@ -37,5 +31,15 @@ props:['img','index']
 }
 img{
     width: 100%;
+}
+.title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    height: 2vw;
+}
+.time{
+    margin-left: 20px;
 }
 </style>

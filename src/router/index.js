@@ -30,8 +30,10 @@ import ManageIndex from '@/views/ManageIndex.vue';
 import MyRecord from '@/views/MyRecord.vue';
 import Scnomal_M from '@/views/Scnornal_M.vue';
 import Sc_AddMusic from '@/views/Sc_Addmusic.vue';
+import cjnb_m from '@/views/Cjnb_M.vue'
 const routes = [
   {path:"/record",component:MyRecord},
+  {path:"/cjnbman",component:cjnb_m},
   {path:"/scmusic",component:Sc_AddMusic},
   {path:'/scnormal',component:Scnomal_M},
   {path:'/manage',component:ManageIndex},
