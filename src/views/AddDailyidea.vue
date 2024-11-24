@@ -11,7 +11,7 @@
 
 <script>
 import axios from 'axios'
-
+  //判断有没有权限访问
 export default {
 data(){
 return{text:'',

@@ -1,4 +1,6 @@
-<template>
+<template >
+    <LoginCom v-if="!isloginflag"></LoginCom>
+  <div v-if="isloginflag"> 
         <el-radio-group v-model="flag">
       <el-radio :value="1">电影</el-radio>
       <el-radio :value="2">游戏</el-radio>
@@ -53,13 +55,23 @@
         </div>
       </template>
     </el-dialog>
+  </div>
   </template>
   
   <script setup>
   import axios from 'axios';
   import { ref,watch} from 'vue';
+  import LoginCom from '../components/admin/LoginCom.vue';
   const list = ref([])
   const flag=ref(1)
+  //判断有没有权限访问
+  import {islogin} from '@/stores/islogin'
+const store = islogin();
+const isloginflag=ref(store.isloginvalue)
+watch(() => store.isloginvalue, () => {
+  isloginflag.value = store.isloginvalue;
+  console.log(isloginflag.value)
+});
   //监听flag的变化，flag一变化就getdata()
   watch(flag,()=>{
     getdata()

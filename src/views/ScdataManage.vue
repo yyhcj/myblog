@@ -1,4 +1,6 @@
 <template>
+      <LoginCom v-if="!isloginflag"></LoginCom>
+    <div v-if="isloginflag">
   <div> 
     <el-radio-group v-model="flag1">
       <el-radio :value="1">照片墙</el-radio>
@@ -25,16 +27,23 @@
      </div>
      <el-button type="primary" @click="commit1">提交</el-button>
   </div>
+</div>
 </template>
 
 <script setup>
 //测试
-
 import axios from 'axios';
 import { ref, watch } from 'vue';
+import LoginCom from '../components/admin/LoginCom.vue';
 const flag=ref(3)//1电影2游戏3音乐,分辨是电影还是游戏还是音乐
 const flag1=ref(1)
-
+  //判断有没有权限访问
+  import {islogin} from '@/stores/islogin'
+const store = islogin();
+const isloginflag=ref(store.isloginvalue)
+watch(() => store.isloginvalue, () => {
+  isloginflag.value = store.isloginvalue;
+});
 //计算是电影还是游戏还是音乐
 const computeflag=()=>{
 if(flag.value==1){
@@ -56,7 +65,6 @@ else if(flag1.value==2){
     return 'lovebest'
 }
 }
-
 const roundlist = ref([]);
 //获取三种数据
 const getdata=()=>{

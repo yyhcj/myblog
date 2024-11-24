@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <LoginCom v-if="!isloginflag"></LoginCom>
+  <div class="container" v-if="isloginflag">
     <div class="item"><el-button type="success" @click="opendialog">添加记录</el-button></div>
     <div class="item" v-for="(item,index) in list" :key="index">
        <div class="title">{{ item.showtime_title }}</div>
@@ -65,8 +66,16 @@
 </template>
 
 <script setup>
+import LoginCom from '../components/admin/LoginCom.vue';
 import axios from 'axios';
-import { ref} from 'vue';
+import { ref,watch} from 'vue';
+import {islogin} from '@/stores/islogin'
+const store = islogin();
+const isloginflag=ref(store.isloginvalue)
+watch(() => store.isloginvalue, () => {
+  isloginflag.value = store.isloginvalue;
+  console.log(isloginflag.value)
+});
 const list = ref([])
 //获取界面数据
 const getdata=()=>{

@@ -1,59 +1,48 @@
 <template>
-  <div class="back">
-    <div class="button-container">
- <router-link to="/nb/sport">  
-<bt class="bt">
-  <template v-slot:text>运动</template>
-</bt>
-</router-link>   
-<router-link to="/nb/fjnu">  
-<bt class="bt">
-  <template v-slot:text>福建师范大学</template>
-</bt>
-</router-link>   
-<router-link to="/nb/computer">  
-<bt class="bt">
-  <template v-slot:text>计算机</template>
-</bt>
-</router-link>   
-<router-link to="/nb/friend">  
-<bt class="bt">
-  <template v-slot:text>交友</template>
-</bt>
-</router-link>   
-<router-link to="/nb/world">  
-<bt class="bt">
-  <template v-slot:text>旅行</template>
-</bt>
-</router-link>     
-</div>
-<router-view class="detail-container"></router-view>
+<div class="back">
+  <div class="button-container">
+    <bt v-for="(item) in List" :key="item.id"  :text="item.name" @click="store(item.tag)"></bt>
   </div>
+  <div class="detail-container">
+    <detail></detail>
+  </div>
+</div>
 </template>
 
-<script>
+<script setup>
+import {ref} from 'vue'
 import bt from "@/components/cjnb/LightButton.vue";
-export default {
-components:{
-  bt
-}
+import detail from "@/components/cjnb/DetailCom.vue";
+import {Cjnbstore} from '@/stores/cjnb_store'
+const List = ref([
+  { id: 1, name: '运动' ,tag:'sport'},
+  { id: 2, name: '旅行' ,tag:'travel'},
+  { id: 3, name: '学校' ,tag:'school'},
+  { id: 4, name: '交友' ,tag:'friend'},
+  { id: 5, name: '技能' ,tag:'skill'}
+]);
+const store = (tag)=>{
+  const store = Cjnbstore()
+  store.updatenowtag(tag)
+  console.log(store.nowtag)
 }
 </script>
 
-<style>
+<style scoped>
 .detail-container{
-  width: 90%;
-  height: 68%;
+  width: 90vw;
+  height: 32vw;
   margin-left:4% ;
   margin-top:50px ;
   border: 3px solid #fff;
-
+  border-radius: 30px;
 }
 .button-container{
-  width: 100%;
+  width: 100vw;
   display: flex;
   justify-content: space-around;
   align-items: center;
+  height: 10vw;
 }
 .bt{
   margin-top: 100px;

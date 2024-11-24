@@ -7,8 +7,10 @@ import * as Icons from '@element-plus/icons-vue';// 引入图标库
 import VForm3 from 'vform3-builds'  //引入VForm3库
 import 'vform3-builds/dist/designer.style.css'  //引入VForm3样式
 import { createPinia } from 'pinia';// 引入pinia
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate';//pinia持久化插件
 const app = createApp(App);
 const pinia = createPinia();
+pinia.use(piniaPluginPersistedstate);
 app.use(pinia);
 app.use(router);
 app.use(VForm3);

@@ -1,13 +1,14 @@
 <template>
   <div>
 <router-view></router-view>
+<RecoverDocker></RecoverDocker>
 <DockerCom class="docker"></DockerCom>
 </div>
 </template>
 
 <script>
 import axios from 'axios';
-
+import RecoverDocker from './components/GlobalCom/RecoverDocker.vue';
 import DockerCom from '@/components/GlobalCom/DockerCom.vue';
 export default {
   data(){
@@ -16,7 +17,7 @@ export default {
     }
   },
   components:{
-  
+    RecoverDocker,
     DockerCom
   },
 methods:{

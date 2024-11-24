@@ -1,18 +1,18 @@
 <template >
     <div>
   <div class="btn">
-    <slot name="text"></slot>
+    {{ props.text }}
   </div>
 </div>
 </template>
-
-<script>
-export default {
-
-}
+<script setup>
+import {defineProps} from 'vue'
+const props=defineProps({
+    text:String
+})
 </script>
 
-<style>
+<style scoped>
 @keyframes rotate{
     from{
         transform: rotate(0deg);

@@ -9,12 +9,18 @@
   <el-button type="primary" @click="go('scmusic')" size="large">音乐管理</el-button>
   <el-button type="primary" @click="go('adddaily')" size="large">写感想</el-button>
   <el-button type="primary" @click="go('cjnbman')" size="large">cjnb管理</el-button>
+  <el-button type="primary" @click="cancellogin">取消登录</el-button>
 
 
 </template>
 <script setup>
+import {islogin} from '@/stores/islogin'
 const go=(path)=>{
 location.href=`/#/${path}`
+}
+const cancellogin=()=>{
+  const store=islogin()
+  store.cancellogin()
 }
 </script>
 

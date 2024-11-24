@@ -1,4 +1,6 @@
 <template>
+    <LoginCom v-if="!isloginflag"></LoginCom>
+  <div v-if="isloginflag">
 <div class="container">
   <div class="item"><el-button type="success" @click="opendialog">添加记录</el-button></div>
   <div class="item" v-for="(item,index) in list" :key="index">
@@ -50,14 +52,22 @@
     </div>
   </template>
 </el-dialog>
+  </div>
 </template>
 
 <script setup>
 import axios from 'axios';
-import { ref} from 'vue';
+import { ref,watch} from 'vue';
+import LoginCom from '../components/admin/LoginCom.vue';
 const list = ref([])
-
-
+  //判断有没有权限访问
+  import {islogin} from '@/stores/islogin'
+const store = islogin();
+const isloginflag=ref(store.isloginvalue)
+watch(() => store.isloginvalue, () => {
+  isloginflag.value = store.isloginvalue;
+  console.log(isloginflag.value)
+});
 //获取界面数据
 const getdata=()=>{
  axios.post('http://120.46.52.202:3000/get_sc_miandata',{type:'normal',keyword:'music'}).then((res)=>{

@@ -10,11 +10,6 @@ import AboutCom from '@/views/AboutCom.vue';
 import LoginCom from '@/components/admin/LoginCom.vue';
 import MusicDetail from '@/views/MusicDetail.vue';
 import AddMusic from '@/views/AddMusic.vue';
-import SportRouter from '@/components/cjnb/SportRouter.vue';
-import FjnuRouter from '@/components/cjnb/FjnuRouter.vue';
-import ComputerRouter from '@/components/cjnb/ComputerRouter.vue';
-import MakefriendRouter from '@/components/cjnb/MakefriendRouter.vue';
-import LookworkRouter from '@/components/cjnb/LookworkRouter.vue';
 import WeloginView from '@/views/WeloginView.vue';
 import EventContainer from '@/components/wepagelogined/EventContainer.vue';
 import AddEvent from '@/components/wepagelogined/AddEvent.vue';
@@ -41,13 +36,7 @@ const routes = [
   {path:'/showmanage',component:Showtime_M},
    {path:'/scmanage',component:ScdataManage},
   {path:'/learn',component:ElementLearn},
-  {path:'/nb',component:cjnb,children:[
-    {path:'sport',component:SportRouter},
-    {path:'fjnu',component:FjnuRouter},
-    {path:'computer',component:ComputerRouter},
-    {path:'friend',component:MakefriendRouter},
-    {path:'world',component:LookworkRouter}
-  ]},
+  {path:'/nb',component:cjnb},
   {path:'/adddaily',component:AddDailyidea},
   {path:'/daily',component:DailyView},
   {path:'/wepage',component:WeloginView,children:[

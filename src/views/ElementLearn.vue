@@ -2,7 +2,6 @@
   <el-button plain @click="dialogFormVisible = true">
     Open a Form nested Dialog
   </el-button>
-
   <el-dialog v-model="dialogFormVisible" title="Shipping address" width="500">
     <el-form :model="form">
       <el-form-item label="Promotion name" :label-width="formLabelWidth">
@@ -26,18 +25,29 @@
   </el-dialog>
   <br>
   <DrewerInput></DrewerInput>
-  <PopWindow></PopWindow>
+  <InforWindow ref="Infor" :list="list1" :api="api"></InforWindow>
+  <button @click="open">
+    打开对话框
+  </button>
 </template>
 
 
 <script  setup>
 import { reactive, ref } from 'vue'
-import PopWindow from '../components/GlobalCom/PopWindow.vue';
 import DrewerInput from '../components/Element/DrewerInput.vue';
+import InforWindow from '../components/GlobalCom/InforWindow.vue';
 // const dialogTableVisible = ref(false)
 const dialogFormVisible = ref(false)
 const formLabelWidth = '140px'
 
+//获取子组件
+const Infor = ref(null)
+//点击设置子组件的值
+const open = () => {
+  Infor.value.isvisible=true
+}
+const api=ref('http://120.46.52.202:3000/addinfor')
+const list1=ref(["name","address","phone"])
 const form = reactive({
   name: '',
   region: '',

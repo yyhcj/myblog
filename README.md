@@ -1,72 +1,25 @@
-# 0.6.0
+# 0.7.0
 ## 前言
-因为花了两周，所以这个版本就不顺推为0.5.0，定为0.6.0.
-这个版本最大的更新就是音乐播放界面，虽然说还不太完整，但是已经迈出了第一步
-有了初步的成果，让我更有信心和动力继续做下去
-## 将文件上传到七牛云
-``` node.js
-//上传到七牛云
-//中间件来读取req.file，由于传输策略，文件不能放在req.body里，是放在另一个专门传buffer类型的属性里
-//这时候就要用mutler中间件来读取文件将文件暂存在内存里
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
-//upload.single('file')意思是从请求中的表单中读取名称为name的文件来上传
-app.post('/uptoqiniu',upload.single('file'),(req, res) => {
-  //bucket为存储空间名称
-  const bucket ='site-source-chen';
-  const config = new qiniu.conf.Config();
-  //这个是我的存储空间位置，广东-华南对应z2
-  config.zone = qiniu.zone.Zone_z2;
-  //从七牛云秘钥管理得到的我的一对秘钥
-  const accessKey = '';
-  const secretKey = '';
-  const mac = new qiniu.auth.digest.Mac(accessKey, secretKey);
-  //存储选项，将文件存在存储空间的哪个路径可以在bucket后面拼接路径
-  const options = {
-      scope: bucket,
-  };
-  const putPolicy = new qiniu.rs.PutPolicy(options);
-  const uploadToken = putPolicy.uploadToken(mac);
-  const formUploader = new qiniu.form_up.FormUploader(config);
-  const putExtra = new qiniu.form_up.PutExtra();
-    // 获取前端上传的buffer对象
-  const readableStream = req.file.buffer; // 可读的流
-  console.log(readableStream)
-  //原本的文件名在传输过程中编码变成了7bit编码，将它转为utf-8
-  //这里将转码后的文件名作为存到云服务区上的文件名
-  const iconv = require('iconv-lite');
-  const originalName = req.file.originalname;
-  const utf8Name = iconv.decode(Buffer.from(originalName, 'latin1'), 'utf-8');
-  const key=utf8Name;
-  //将buffer类型的文件源数据转为可读的流，我也不太理解，应该是转了后它就有了一些方法，如果不转就报错once方法未定义
-  const readableStream1 = new Readable({
-    read() {
-      this.push(readableStream);
-      this.push(null);
-    }
-  });
-  // 文件上传
-  formUploader.putStream(uploadToken, key, readableStream1, putExtra)
-    .then(({ data, resp }) => {
-        if (resp.statusCode === 200) {
-            res.json("ok")
-            return
-        } else {
-        }
-    })
-});
+转眼间已经来到0.7.0了，也就意味着还有三个版本正式版就要面世了，整个网站大部分功能也都实现了，但是能体现技术含量的地方还不多，最可圈可点的应该还是0.2.0版本就实现的照片墙。前端的技术还没体现出来。先说说这个版本的进度吧，第一cjnb界面重构了一下，然后后台管理界面的加密，然后弹窗组件的封装，还有导航栏的优化支持隐藏导航栏后恢复。
+## 一.cjnb界面的重构
+![img](http://abc.cjnb.site/blog/myrecord/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-11-24%20230822.png)
+之前是每个模块一个界面（不同的组件）这样就导致相同的代码要写好几遍，修改后就是这几个模块公用一个组件，不同的数据来实现不同的界面。为cjnb模块设计了数据库，来实现动态管理，目前只做了对数据的增加。
+## 二.后台管理界面的加密
+![img](http://abc.cjnb.site/blog/myrecord/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-11-24%20231604.png)
+在每一个管理界面都先判断了一下是否登录，没登录就显示登录界面。登录界面输入了正确的账号密码就可以将登陆状态设置为已登录，就可以访问后台管理界面。这样可以有效防止别人对我的数据直接进行操作。
+## 三.弹窗组件的封装
+![img](http://abc.cjnb.site/blog/myrecord/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-11-24%20231829.png)
+短短40行代码，我封装了一个简单的弹窗组件，在别的地方想使用弹窗，只要引入这个组件在使用的时候加上两个参数，一个对象来告诉弹窗组件有哪些行，属性名是什么。另一个参数是api路径来确定将数据提交到哪里。
+![img](http://abc.cjnb.site/blog/myrecord/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-11-24%20232235.png)
+目前只用在了这一个地方，后面可以再加，传入v-model的数据，来实现数据修改
+## 导航栏的优化
+![img](http://abc.cjnb.site/blog/myrecord/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-11-24%20232711.png)
+原来的导航栏组件使用vue2写的，为什么呢，因为教程是用vue2，因为在vue2里很难去监听pinia的变化来实现我的需求，所以我索性就将这个用vue3重写了一遍，但是也是用ai重写的。加了一个组件恢复导航栏，通过pinia来让他们共享数据，来判断他们两个哪个要显示，哪个隐藏。可以说是非常的人性化。
+## 学习访问外部资源403问题
+因为我在访问我的云服务器资源的时候，出现了403问题，而我直接访问这个资源的地址却是可以的，问了万能的群友这是因为防盗链机制，只要在index.html里加上这一段代码就可以了。
 ```
-这段代码让我搞了特别久，这是我第一次看文档用别人的接口，所以就琢磨了很久，不过最后的结果还是好的，也算是可以完成功能，用这个接口只要输入一个文件数据就可以上传到七牛云我的存储空间，就可以通过url的形式来给我的网站适用。
-## 音乐播放界面
-![img](http://abc.cjnb.site/blog/myrecord/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-11-18%20000814.png)
-外层是一个唱片图片中间是专辑的图片，图片右上角的那个可以根据播放暂停移动，歌词会随着歌曲的播放而滚动。主要的播放逻辑是先从数据库根据歌曲id获取歌词的路径，再通过路径获取歌词，再将lrc格式的歌词转化为要的数组（时间数组，歌词数组），再监听媒体的播放事件，比较时间在时间数组的位置来确定歌词的滚动。
-## 添加音乐
-![img](http://abc.cjnb.site/blog/myrecord/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-11-18%20001706.png)
-输入歌曲名，图片地址，歌词文件，音乐文件即可添加音乐，其中歌曲名，图片地址，歌词文件地址，音乐文件地址会存进数据库，音乐文件，歌词文件会存进七牛云。
-## 人生时刻界面小优化
-![img](http://abc.cjnb.site/blog/myrecord/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-11-18%20001947.png)
-## 遇见彩虹首页小优化
-![img](http://abc.cjnb.site/blog/myrecord/%E5%B1%8F%E5%B9%95%E6%88%AA%E5%9B%BE%202024-11-18%20002135.png)
-文件不再使用静态资源，图片存储在服务器上，图片加载速度变快很多
+<meta name="referrer" content="never" />
+```
+意识是要让浏览器不发送referer头，让服务器不知道我是谁，这样就可以访问了。
 ## 总结
-这两周因为音乐播放界面的问题其他的开发非常少，不过我觉得也是值得的，不是做的多就厉害，要做有技术含量的做没做过的才能进步，增删改查写的再多再好进步也不会大，看到优秀的想法可以去学习模仿，别人遇到的问题自己也要思考改进，不因为难而怕，反而要因为难而兴奋，进步进步进步，我一定要进步！
+按照这个节奏下去，到1.0.0版本网站大体应该就差不多了。下个版本吧cjnb界面做好，做个卡片翻转效果，wepage背景做个预加载或者懒加载，wepagelogin界面做个动效，把事件上传，传照片也传到七牛云，而不是原来的服务器上。0.9.0版本把本站介绍界面做一下，人生时刻界面优化一下，后台管理界面做好。1.0.0版本把安全性搞一下，尤其是sql注入要防止，差不多就完成啦。
