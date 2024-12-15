@@ -16,9 +16,8 @@
     </div>
   </div>
 </div>
-<img src="http://sm2n4r5ma.hn-bkt.clouddn.com/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20241113164611.png" class="mover" alt="">
+<img src="http://abc.cjnb.site/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20241113164611.png" class="mover" alt="">
 </template>
-
 <script setup>
 import axios from 'axios'
 import {onMounted, ref,watch} from 'vue'

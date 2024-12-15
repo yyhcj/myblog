@@ -1,4 +1,5 @@
 <template>
+  <particles id="tsparticles" class="back">
 <div class="container">
   <div class="side">
     <button class="elbutton"  @click="set(index)" v-for="(item,index) in list" :key="index">
@@ -9,9 +10,22 @@
     <div v-html="list[num].recordhtml" class="vhtml"></div>
   </div>
 </div>
+</particles>
 </template>
 
 <script setup>
+import { tsParticles } from "@tsparticles/engine";
+import { loadSeaAnemonePreset } from "@tsparticles/preset-sea-anemone"; 
+(async () => {
+  await loadSeaAnemonePreset(tsParticles);
+
+  await tsParticles.load({
+    id: "tsparticles",
+    options: {
+      preset: "seaAnemone",
+    },
+  });
+})();
 import axios from "axios";
 import { ref } from "vue";
 const list = ref([{versionnum:'',recordhtml:''}])
@@ -26,14 +40,18 @@ const list = ref([{versionnum:'',recordhtml:''}])
 </script>
 
 <style scoped>
+.back{
+position: relative;
+z-index: -1;
+}
 .container{
   display: flex;
   width: 98.5vw;
-  background-color: #000000;
+  z-index: 50;
+  position: fixed;
 }
 .side{
   width: 20vw;
-  background-color: #000000;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;

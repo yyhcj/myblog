@@ -13,56 +13,21 @@
       <label for="">提交人:</label>
       <input type="text" class="people-input" v-model="commitpeople" /><br />
       <form @submit.prevent="uploadImage">
-        <input type="file" ref="fileInputRef" @change="handleinputchange" />
+        <input type="file" id="img" />
       </form>
       <div class="img-watch">
-          <img :src="imageUrl" alt="" />
-        </div>
-
+        <img :src="imageUrl" alt="" />
       </div>
-      <div class="commitpeople"></div>
     </div>
+    <div class="commitpeople"></div>
+  </div>
 </template>
 
 <script setup>
 import axios from "axios";
 import { ref } from "vue";
-const file=ref(null)
-const imageUrl=ref('')
-//当图片输入框变化
-const handleinputchange = (e) => {
-  console.log(e.target.files[0])
-  file.value = e.target.files[0];
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    imageUrl.value = e.target.result;
-  };
-  console.log(file.value.name)
-  reader.readAsDataURL(file.value);
-};
-//处理图片
-const fileInputRef = ref(null);
+const imageUrl = ref("");
 
-       const uploadImage = async () => {
-         const file = fileInputRef.value.files[0];
-         if (!file) return;
-         const formData = new FormData();
-         formData.append('image', file);
-         try {
-           const response = await axios.post('http://120.46.52.202:3000/api/upload', formData, {
-             headers: {
-               'Content-Type': 'multipart/form-data'
-             },
-             params: {
-    filename1: encodeURIComponent(file.name)
-
-  }
-           });
-           console.log(response.data);
-         } catch (error) {
-           console.error(error);
-         }
-       };
 //获取当前时间
 const gettime = () => {
   const now = new Date();
@@ -84,27 +49,25 @@ const commitpeople = ref("");
 const detail = ref("");
 // 提交事件
 const commit = () => {
-  if (
-    title.value == "" ||
-    detail.value == "" ||
-    commitpeople.value == ""
-  ) {
+  if (title.value == "" || detail.value == "" || commitpeople.value == "") {
     alert("请填写完整");
   } else {
-    let data = {
+//上传图片到七牛云
+  const img1 = document.getElementById("img");
+  const formData = new FormData();
+  formData.append("file", img1.files[0]);
+  console.log(img1.files[0].name)
+  axios.post("http://120.46.52.202:3000/uptoqiniu", formData);
+  //上传记录
+  let data = {
       title: title.value,
       detail: detail.value,
-      img:file.value.name,
-
+      img: img1.files[0].name,
       time: gettime(),
       people: commitpeople.value,
     };
-    uploadImage();
-    console.log(data);
-
-    axios.post("http://120.46.52.202:3000/addEvent", data).then((res) => {
+  axios.post("http://120.46.52.202:3000/addEvent", data).then((res) => {
       console.log(res);
-
       alert("提交成功");
       //location.href = "/#/wepage";
     });
@@ -190,7 +153,7 @@ img {
 .commit-button {
   margin-left: 5.128vw;
   width: 15vw;
-  height:6vw;
+  height: 6vw;
   border-radius: 0.513vw;
   background-color: rgb(241, 127, 127);
 }

@@ -51,7 +51,6 @@ export default {
       formData.append('singer', this.singer);
       formData.append('geciFile', this.gecifile, this.geciencodedFileName || this.file.name);
       formData.append('imgFile', this.imgfile, this.imgencodedFileName || this.file.name);
-
       axios.post('http://120.46.52.202:3000/music', formData)
        .then(response => {
           console.log(response.data);

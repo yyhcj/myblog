@@ -5,7 +5,8 @@
   <div class="item"><el-button type="success" @click="opendialog">添加记录</el-button></div>
   <div class="item" v-for="(item,index) in list" :key="index">
      <div class="title">{{ item.name }}</div>
-     <img :src=item.img alt="">
+     <div class="img"><img :src=item.img alt=""></div> 
+     <div class="type">{{ item.class }}</div>
      <div class="buttons">
      <el-button type="primary" @click="change(index)">修改</el-button>
      <el-button type="danger" @click="deletecomfirm(index)">删除</el-button>
@@ -70,8 +71,12 @@ watch(() => store.isloginvalue, () => {
 });
 //获取界面数据
 const getdata=()=>{
- axios.post('http://120.46.52.202:3000/get_sc_miandata',{type:'normal',keyword:'music'}).then((res)=>{
-   list.value=res.data
+ var lovelist=[]
+  axios.post('http://120.46.52.202:3000/get_sc_musicdata',{type:'lovebest',keyword:'music'}).then((res)=>{
+   lovelist=res.data
+})
+ axios.post('http://120.46.52.202:3000/get_sc_musicdata',{type:'normal',keyword:'music'}).then((res)=>{
+   list.value=lovelist.concat(res.data)
    console.log(list.value)
 })
 }
@@ -139,8 +144,7 @@ const geci=document.getElementById('geci')
 formData.append('file', music.files[0]);
 const formData1=new FormData()
 formData1.append('file',geci.files[0]);
-console.log(geci.files[0].name)
-axios.post('http://120.46.52.202:3000/addmusic',{name:add_data.value.name,img:add_data.value.img,musicpath:`http://sm2n4r5ma.hn-bkt.clouddn.com/${music.files[0].name}`,gecipath:`http://sm2n4r5ma.hn-bkt.clouddn.com/${geci.files[0].name}`,type:'lovebest'}).then((res)=>{
+axios.post('http://120.46.52.202:3000/addmusic',{name:add_data.value.name,img:add_data.value.img,musicpath:`http://abc.cjnb.site/${music.files[0].name}`,gecipath:`http://sm2n4r5ma.hn-bkt.clouddn.com/${geci.files[0].name}`,type:'normal'}).then((res)=>{
       if(res.data){
       console.log(res.data)
       alert('添加成功')}
@@ -177,6 +181,11 @@ border:1px solid black;
 img{
   height: 100px;
 }
+.img{
+  width: 300px;
+  display: flex;
+  justify-content: center;
+}
 .title{
 width: 100px;
 }
@@ -184,6 +193,9 @@ width: 100px;
 width: 100px;
 }
 .time {
+width: 100px;
+}
+.type{
 width: 100px;
 }
 </style>

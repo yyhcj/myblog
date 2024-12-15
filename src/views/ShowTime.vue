@@ -13,11 +13,9 @@
   </div>
 
 </template>
-
 <script setup>
 import ShowcardLeftlist from '../components/showtime/Showcard-Leftlist.vue';
 import ShowcardRightlist from '../components/showtime/Showcard-Rightlist.vue';
-
 </script>
 
 <style scoped>
@@ -46,10 +44,10 @@ import ShowcardRightlist from '../components/showtime/Showcard-Rightlist.vue';
 }
 .back{
   width: 100vw;
-  background-image: url('@/assets/rembackphoto/微信图片_20241029144358.jpg');
+  height: 100vh;
+  background-image: url('http://abc.cjnb.site/blog/back/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20241029144358.jpg');
   filter: opacity(70%);
   position: fixed;
-
   top: 0;
   left: 0;
   z-index: -1;

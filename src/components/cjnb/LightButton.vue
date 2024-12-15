@@ -23,14 +23,16 @@ const props=defineProps({
 }
 .btn{
     text-align: center;
-    line-height: 100px;
-    font-size: 20px;
+    font-size: 1.5vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #fff;
-    border-radius: 15px;
+    border-radius: 10%;
     position: relative;
-    width: 200px;
-    height: 100px;
-    background-color: aliceblue;
+    width: 12vw;
+    height: 7vw;
+    background-color: rgb(59, 59, 59);
     z-index: 1;
     overflow: hidden;
     -webkit-box-reflect: below 10px linear-gradient(transparent, rgba(0, 0, 0, 0.4));
@@ -47,12 +49,6 @@ const props=defineProps({
     transition: all 2s;
     scale: 1.5;
 }
-/* .btn:not(:hover)::after,.btn:not(:hover)::before{
-    scale: 1.0;
-    transition: 2s;
-    
-} */
-
 .btn::before{
     transform-origin: 0 0;
     content: '';

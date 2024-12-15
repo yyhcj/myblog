@@ -1,10 +1,11 @@
 <template>
   <div class="outer">
-    <div class="card" v-for="(item) in list" :key="item.id">{{ item.title }}</div>
-   
+  <div class="card" v-for="(item) in list" :key="item.id">
+    <div class="side1">{{ item.title }}</div>
+    <div class="side2"><img :src="item.img" alt=""></div>
+  </div>
   </div>
 </template>
-
 <script setup>
 import axios from 'axios';
 import { ref,watch } from 'vue';
@@ -24,21 +25,7 @@ const getdata=()=>{
 getdata()
 </script>
 <style scoped>
-.img1{
-    width: 100%;
-    height: 100%;
-}
-.body{
-    transform-style: preserve-3d;
-    width: 100px;
-    height: 200px;
-    background-color: rgb(187, 21, 57);
-}
-.hiden{
-    width: 1000px;
-    height: 500px;
-    background-color: brown;
-}
+/*包含所有卡片的容器*/
 .outer{
     height: 100%;
     display: flex;
@@ -47,25 +34,50 @@ getdata()
     align-items: center;
    
 }
-
-.test{
-    position: absolute;
-    top: 270px;
-    left: 95px;
-    width: 1700px;
-    height: 640px;
-    background-color: rgb(187, 21, 57);
-    z-index: 0;
-    opacity: 0;
-}
+/*卡片整体*/
 .card{
+    position: relative;
     width: 15%;
     height: 60%;
     height: 60%;
-    background-color: aqua;
-    overflow: hidden;
-    transition:3s;
-    transform-origin: 5% 50%;
-    
+    perspective: 500px;
+    transition:2s;
+    transform-origin: 5% 50%; 
+}
+/* side1是正面，side2是反面 */
+.side1,.side2{
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    transition: 2s;
+    position: absolute;
+    border-radius: 10%;
+
+}
+.side1{
+    display: flex;
+    font-size: 32px;
+    align-items: center;
+    justify-content: center;
+    background-color: aquamarine;
+    z-index: 2;
+}
+.side2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: beige;
+    z-index: -1;
+    transform: rotateY(180deg);
+}
+/* 鼠标悬停时翻转 */
+.card:hover .side1{
+    transform: rotateY(-180deg);
+}
+.card:hover .side2{
+    transform: rotateY(0deg);
+}
+img{
+    width: 100%;
 }
 </style>

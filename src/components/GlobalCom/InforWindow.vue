@@ -27,6 +27,7 @@ for (const element of prop.list) {
 // 使用defineExpose将isvisible和isvisiblefun对外暴露，这样父组件就能访问到它们了
 defineExpose({
     isvisible,
+    obj,
 });
 const commit=()=>{
     console.log(obj.value)

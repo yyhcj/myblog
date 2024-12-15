@@ -4,9 +4,11 @@
     <InforWindow ref="Infor" :list="list" :api="api"></InforWindow>
     <el-button type="primary" @click="show">添加记录</el-button>
   </div>
+  <CjnbData_M></CjnbData_M>
 </template>
 
 <script setup>
+import CjnbData_M from '../components/cjnb/CjnbData_M.vue';
 import InforWindow from '../components/GlobalCom/InforWindow.vue';
 import LoginCom from '../components/admin/LoginCom.vue';
 import { ref,watch } from 'vue';
@@ -18,8 +20,9 @@ watch(() => store.isloginvalue, () => {
   isloginflag.value = store.isloginvalue;
   console.log(isloginflag.value)
 });
+
 //获取子组件
-const list=ref(["img","type","title"])
+const list=ref(["img","type","title",'img2','detail'])
 const api='http://120.46.52.202:3000/addcjnb'
 const Infor = ref(null)
 const show=()=>{
